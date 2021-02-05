@@ -40,7 +40,7 @@
           </p>
           <p class="text-dark">
             @if (isset($post->content))
-            {{ \Str::limit($post->content, 170) }}
+            {!! \Str::limit($post->content, 170) !!}
             <a href="{{ route('blog.show', $post->id) }}">Read More</a>
             @endif
           </p>
