@@ -7,7 +7,7 @@
         <h4 class="m-0 mb-3">
             <a href="{{ '/profile/' . $user->username }}" class="text-primary">
                 {{ $user->username }}
-                {{ $user == auth()->user() ? ' (You)' : '' }}
+                {{ $user->id == auth()->user()->id ? ' (You)' : '' }}
             </a>
             &middot;
             {{ request()->is('profile/*/followers') ? 'Followers' : 'Followings' }}
