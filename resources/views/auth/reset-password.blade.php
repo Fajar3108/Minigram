@@ -8,7 +8,7 @@
 >
     <div class="card login-card" style="width: 20rem">
     <div class="card-body text-center">
-        <img src="source/images/logo.png" width="100" height="100" />
+        <img src="{{ asset('source/images/logo.png') }}" width="100" height="100" />
         <h5 class="card-title mb-4">Change Your Password</h5>
         @if (session('status'))
         <div class="alert alert-success" role="alert">
@@ -20,7 +20,7 @@
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
         <div class="form-group">
             <input
-            type="password"
+            type="email"
             class="form-control bg-light"
             id="email"
             name="email"
@@ -40,7 +40,7 @@
             class="form-control bg-light"
             id="password"
             name="password"
-            placeholder="password"
+            placeholder="New Password"
             />
             @error('password')
                 <small class="text-danger">
@@ -54,7 +54,7 @@
             class="form-control bg-light"
             id="password_confirmation"
             name="password_confirmation"
-            placeholder="password_confirmation"
+            placeholder="Confirm Password"
             />
             @error('password_confirmation')
                 <small class="text-danger">
