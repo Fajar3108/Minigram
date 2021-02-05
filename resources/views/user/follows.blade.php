@@ -13,7 +13,7 @@
             {{ request()->is('profile/*/followers') ? 'Followers' : 'Followings' }}
         </h4>
         @if (request()->is('profile/*/followers'))
-            @foreach ($user->followers as $follow)
+            @forelse ($user->followers as $follow)
             <a href="{{ '/profile/' . $follow->username }}" class="text-dark">
                 <li class="media mb-3 shadow p-3 rounded">
                     <img src="{{ $follow->profile_image ? asset('profiles/' . $follow->profile_image ) : asset('source/images/default-profile.png') }}" class="mr-3 rounded-circle" width="32" height="32"
@@ -24,9 +24,14 @@
                     </div>
                 </li>
             </a>
-            @endforeach
+            @empty
+            <div class="d-flex flex-column justify-content-center align-items-center" style="height: 50vh">
+                <h1 style="font-size: 72px" class="m-0 text-secondary"><i class="fas fa-laugh-wink"></i></h1>
+                <h4 class="text-secondary my-4">Has No Followers</h4>
+            </div>
+            @endforelse
         @elseif(request()->is('profile/*/followings'))
-            @foreach ($user->followings as $follow)
+            @forelse ($user->followings as $follow)
             <a href="{{ '/profile/' . $follow->username }}" class="text-dark">
                 <li class="media mb-3 shadow p-3 rounded">
                     <img src="{{ $follow->profile_image ? asset('profiles/' . $follow->profile_image ) : asset('source/images/default-profile.png') }}" class="mr-3 rounded-circle" width="32" height="32"
@@ -37,7 +42,12 @@
                     </div>
                 </li>
             </a>
-            @endforeach
+            @empty
+           <div class="d-flex flex-column justify-content-center align-items-center" style="height: 50vh">
+                <h1 style="font-size: 72px" class="m-0 text-secondary"><i class="fas fa-laugh-wink"></i></h1>
+                <h4 class="text-secondary my-4">Has No Followings</h4>
+            </div>
+            @endforelse
         @endif
         </ul>
     </main>

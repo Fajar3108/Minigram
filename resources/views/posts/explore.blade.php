@@ -39,7 +39,10 @@
     </div>
     @empty
     <div class="text-center py-4 w-100">
-        No Post Found &middot; <a href="/blog/explore/">Show All</a>
+        <div class="d-flex flex-column justify-content-center align-items-center" style="height: 50vh">
+            <h1 style="font-size: 72px" class="m-0 text-secondary"><i class="fas fa-frown"></i></h1>
+            <h4 class="text-secondary my-4">No Posts Found</h4>
+        </div>
     </div>
     @endforelse
     <!-- End Posts -->
