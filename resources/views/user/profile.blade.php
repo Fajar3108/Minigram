@@ -62,7 +62,7 @@
                 <img
                 src="{{ asset('posts/' . $post->thumbnail) }}"
                 class="d-block w-100 h-100 rounded"
-                style="object-fit: cover; object-position: center"
+                style="max-height: 200px; object-fit: cover; object-position: center"
                 />
             </a>
         </div>
