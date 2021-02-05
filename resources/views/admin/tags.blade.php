@@ -27,7 +27,7 @@
                     <form action="/tag/delete/{{ $tag->id }}" method="POST">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-outline-danger" onclick="confirm('Are you sure?')">Delete</button>
+                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
                     </form>
                 </td>
             </tr>
