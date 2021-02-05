@@ -61,3 +61,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::delete('tag/delete/{tag:id}', [TagController::class, 'destroy']);
 
 });
+
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('admin/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('admin/users', [DashboardController::class, 'manageUsers'])->name('dashboard.users');
+    Route::get('admin/tags', [TagController::class, 'listTags'])->name('dashboard.tags');
+
+    Route::post('tag/store', [TagController::class, 'store']);
+    Route::delete('tag/delete/{tag:id}', [TagController::class, 'destroy']);
+});
