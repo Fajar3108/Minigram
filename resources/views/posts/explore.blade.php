@@ -25,15 +25,15 @@
     </div>
     @endif
     <!-- Explore Posts -->
-    <div class="row">
+    <div class="row px-3">
     <!-- Post -->
     @forelse ($posts as $post)
-    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-1 p-1">
         <a href="{{ '/blog/' . $post->id . '/show' }}">
         <img
             src="{{ asset('posts/' . $post->thumbnail) }}"
-            class="d-block w-100 h-100 rounded"
-            style="max-height: 200px; object-fit: cover; object-position: center"
+            class="d-block w-100 h-100 rounded post"
+            style="max-height: 250px; object-fit: cover; object-position: center"
         />
         </a>
     </div>

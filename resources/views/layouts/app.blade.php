@@ -39,7 +39,7 @@
 
     <!-- Footer -->
     @if (auth()->user() && auth()->user()->email_verified_at)
-    <p class="text-center text-secondary">
+    <p class="text-center text-secondary mb-0 py-4">
       &copy; Copyright 2021 - Maulana Fajar Ibrahim
     </p>
     @endif

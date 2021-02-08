@@ -8,12 +8,12 @@
             @csrf
           <div class="form-group">
             <label for="imageInput">Thumbnail</label>
-            <div class="image-upload mb-3" style="width: 100%">
+            <div class="image-upload mb-3 rounded border" style="width: 100%; max-height: 300px;">
               <img
                 src="{{ asset('posts/' . $post->thumbnail) }}"
                 class="rounded"
                 id="imagePreview"
-                style="width: 100%; max-height: 300px; object-fit: cover; object-position: center;"
+                style="width: 100%; height: 300px; object-fit: cover; object-position: center;"
               />
               <input type="file" name="thumbnail" id="imageInput" hidden />
               <label class="profile-input-label" for="imageInput"

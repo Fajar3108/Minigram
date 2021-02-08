@@ -4,7 +4,7 @@
 @if($user->followers->count() > 0 || $user->followings->count() > 0)
     <main>
         <ul class="list-unstyled mx-auto px-4 my-4" style="max-width: 500px">
-        <h4 class="m-0 mb-3">
+        <h4 class="m-0 mb-4">
             <a href="{{ '/profile/' . $user->username }}" class="text-primary">
                 {{ $user->username }}
                 {{ $user->id == auth()->user()->id ? ' (You)' : '' }}
@@ -15,7 +15,7 @@
         @if (request()->is('profile/*/followers'))
             @forelse ($user->followers as $follow)
             <a href="{{ '/profile/' . $follow->username }}" class="text-dark">
-                <li class="media mb-3 shadow p-3 rounded">
+                <li class="media mb-3 shadow-sm p-3 rounded border">
                     <img src="{{ $follow->profile_image ? asset('profiles/' . $follow->profile_image ) : asset('source/images/default-profile.png') }}" class="mr-3 rounded-circle" width="32" height="32"
                     style="object-fit: cover; object-position:center">
                     <div class="media-body">
@@ -33,7 +33,7 @@
         @elseif(request()->is('profile/*/followings'))
             @forelse ($user->followings as $follow)
             <a href="{{ '/profile/' . $follow->username }}" class="text-dark">
-                <li class="media mb-3 shadow p-3 rounded">
+                <li class="media mb-3 shadow-sm p-3 rounded border">
                     <img src="{{ $follow->profile_image ? asset('profiles/' . $follow->profile_image ) : asset('source/images/default-profile.png') }}" class="mr-3 rounded-circle" width="32" height="32"
                     style="object-fit: cover; object-position:center">
                     <div class="media-body">

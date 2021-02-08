@@ -2,7 +2,7 @@
 
 @section('content')
 
-<main class="container py-4">
+<main class="container pt-4">
       <!-- Profile -->
       <div class="row pb-4">
         <div class="col-md-6 mx-auto d-flex profile">
@@ -11,8 +11,8 @@
             width="150"
             height="150"
             loading="lazy"
-            class="rounded mr-4 profile-img"
-            style="object-fit: cover; object-position: center; border: 1px solid #707070;"
+            class="rounded mr-4 profile-img border"
+            style="object-fit: cover; object-position: center;"
           />
           <div class="user-info">
             <div class="d-flex user-data align-items-center">
@@ -30,7 +30,7 @@
                 </form>
               @endif
             </div>
-            <div class="d-flex align-items-center user-activity-data text-dark">
+            <div class="d-flex align-items-center text-dark">
               <div class="text-center">
                 <strong>Posts</strong>
                 <h4>{{ $user->posts->count() }}</h4>
@@ -52,17 +52,17 @@
         </div>
       </div>
       <!-- End Profile -->
-      <hr>
+      <hr class="m-0">
       <!-- Posts -->
       @if ($posts)
-      <div class="row py-4">
+      <div class="row pt-4 px-2">
           @foreach ($posts as $post)
-          <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-1 p-1">
               <a href="{{ route('blog.show', $post->id) }}">
                 <img
                 src="{{ asset('posts/' . $post->thumbnail) }}"
-                class="d-block w-100 h-100 rounded"
-                style="max-height: 200px; object-fit: cover; object-position: center"
+                class="d-block w-100 h-100 rounded post"
+                style="max-height: 250px; object-fit: cover; object-position: center"
                 />
             </a>
         </div>

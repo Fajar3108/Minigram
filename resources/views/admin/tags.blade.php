@@ -38,27 +38,27 @@
     <div style="max-width: 500px" class="mx-auto">
         {{ $tags->links() }}
     </div>
-</main>
-
-<!-- Add New Tag Modal -->
-<div class="modal fade" id="addNewTag" tabindex="-1" aria-labelledby="addTagTitle" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addTagTitle">Add New Tag</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="/tag/store" method="POST">
-            @csrf
-            <input type="text" name="name" placeholder="Tag Name" class="form-control">
-            <button type="submit" class="btn btn-block btn-primary mt-3">Submit</button>
-        </form>
+    <!-- Add New Tag Modal -->
+    <div class="modal fade" id="addNewTag" tabindex="-1" aria-labelledby="addTagTitle" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addTagTitle">Add New Tag</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/tag/store" method="POST">
+                @csrf
+                <input type="text" name="name" placeholder="Tag Name" class="form-control">
+                <button type="submit" class="btn btn-block btn-primary mt-3">Submit</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+</main>
+
 
 @endsection

@@ -4,26 +4,26 @@
 
 <!-- Main -->
     @if ($posts)
-    <main class="container py-4">
+    <main class="container">
       <!-- Posts -->
         @foreach ($posts as $post)
-      <div class="row mb-4">
-        <div class="col-md-6">
+      <div
+        class="row mt-4 mx-auto shadow m-2 rounded border">
+        <div class="col-md-6 py-3 border-bottom">
           <a href="{{ route('blog.show', $post->id) }}">
           <img
             src="{{ asset('posts/'. $post->thumbnail) }}"
-            class="d-block w-100"
-            style="max-height:300px; object-fit: cover; object-position: center;"
+            class="d-block w-100 border rounded post-home"
           />
           </a>
         </div>
-        <div class="col-md-6 py-2">
+        <div class="col-md-6 py-3">
           <div class="media align-items-center">
             <img
               src="{{ asset($post->user->imgProfile()) }}"
               width="32"
               height="32"
-              class="mr-3 rounded-circle"
+              class="mr-3 rounded-circle border"
               style="object-fit: cover; object-position: center;"
             />
             <div class="media-body d-flex justify-content-between">
