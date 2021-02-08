@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\{Post, Comment};
 use Illuminate\Http\Request;
+Use Alert;
 
 class CommentController extends Controller
 {
@@ -11,13 +12,14 @@ class CommentController extends Controller
     {
         $comment = new Comment;
 
-        $comment->body = $request->comment;
-
-        $comment->user()->associate($request->user());
-
-        $post = Post::find($request->post_id);
-
-        $post->comments()->save($comment);
+        if(isset($request->comment)){
+            $comment->body = $request->comment;
+            $comment->user()->associate($request->user());
+            $post = Post::find($request->post_id);
+            $post->comments()->save($comment);
+        }else{
+            Alert::error('ERROR', "Comment can't be null");
+        }
 
         return back();
     }
@@ -25,15 +27,15 @@ class CommentController extends Controller
     {
         $reply = new Comment();
 
-        $reply->body = $request->comment;
-
-        $reply->user()->associate($request->user());
-
-        $reply->target_id = $request->target_id;
-
-        $post = Post::find($request->post_id);
-
-        $post->comments()->save($reply);
+        if(isset($request->comment)){
+            $reply->body = $request->comment;
+            $reply->user()->associate($request->user());
+            $reply->target_id = $request->target_id;
+            $post = Post::find($request->post_id);
+            $post->comments()->save($reply);
+        }else{
+            Alert::error('ERROR', "Comment can't be null");
+        }
 
         return back();
     }
