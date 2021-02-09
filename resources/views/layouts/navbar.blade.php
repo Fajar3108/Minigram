@@ -18,10 +18,16 @@
             ><i class="fas fa-search"></i
           ></a>
         </li>
-        <li class="nav-item px-2{{ request()->is('blog/create') ? ' active' : '' }}">
-          <a class="nav-link" href="{{ route('blog.create') }}"
-            ><i class="fas fa-plus"></i
-          ></a>
+        <li class="nav-item px-2{{ request()->is('notifications') ? ' active' : '' }}">
+            <a class="nav-link" href="/notifications">
+                <i class="fas fa-bell notif">
+                    @if (auth()->user()->unreadNotifications->count() > 0)
+                    <span class="indicator">
+                        {{ auth()->user()->unreadNotifications->count() }}
+                    </span>
+                    @endif
+                </i>
+            </a>
         </li>
         <li class="nav-item px-2 dropdown">
           <a
@@ -48,9 +54,12 @@
           >
             <a class="dropdown-item{{ request()->is('profile/' . auth()->user()->username ) ? ' active' : '' }}" href="{{ '/profile/' . auth()->user()->username }}">Profile</a>
             <a class="dropdown-item{{ request()->is('profile/settings') ? ' active' : '' }}" href="/profile/settings">Settings</a>
+            <a class="dropdown-item{{ request()->is('blog/create') ? ' active' : '' }}" href="{{ route('blog.create') }}">New Post</a>
+
             @if (auth()->user()->role == "admin")
             <a class="dropdown-item{{ request()->is('admin*') ? ' active' : '' }}" href="/admin/dashboard">Dashboard</a>
             @endif
+
             <div class="dropdown-divider"></div>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf

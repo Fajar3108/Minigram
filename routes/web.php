@@ -28,6 +28,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
     Route::get('/profile/{user:username}', [UserController::class, 'show']);
 
+    Route::get('/notifications', function () {
+        auth()->user()->unreadNotifications->markAsRead();
+        return view('user.notification');
+    });
+
     Route::get('/profile/{user:username}/followers', [UserController::class, 'follows']);
     Route::get('/profile/{user:username}/followings', [UserController::class, 'follows']);
 
