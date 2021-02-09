@@ -101,8 +101,9 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         if(auth()->user()->id === $post->user_id || auth()->user()->role === "admin"){
-            File::delete('posts/' . $post->thumbnail);
+            $post->tags()->detach();
             $post->delete();
+            File::delete('posts/' . $post->thumbnail);
             Alert::success('Success', 'Post deleted successfully.');
             return redirect('/');
         }else{
