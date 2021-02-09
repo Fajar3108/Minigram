@@ -13,6 +13,9 @@ class UserController extends Controller
     }
     public function show(User $user)
     {
+        if($user->banned_at != null){
+            abort(404);
+        }
         $posts = [];
         foreach($user->posts as $post){
             $posts[] = $post;

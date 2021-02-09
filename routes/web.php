@@ -7,7 +7,8 @@ use App\Http\Controllers\{
     TagController,
     CommentController,
     DashboardController,
-    FollowController
+    FollowController,
+    ReportController
 };
 
 /*
@@ -65,6 +66,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('tag/store', [TagController::class, 'store']);
     Route::delete('tag/delete/{tag:id}', [TagController::class, 'destroy']);
 
+    Route::get('admin/report', [ReportController::class, 'index'])->name('dashboard.report');
+
+    Route::post('report/add', [ReportController::class, 'store'])->name('report.store');
+
+    Route::post('user/{user:username}/block', [ReportController::class, 'block'])->name('report.block');
+
+    Route::post('user/{user:username}/block', [ReportController::class, 'unblock'])->name('report.unblock');
 });
 
 Route::group(['middleware' => ['admin']], function () {
@@ -74,4 +82,9 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::post('tag/store', [TagController::class, 'store']);
     Route::delete('tag/delete/{tag:id}', [TagController::class, 'destroy']);
+    Route::get('admin/report', [ReportController::class, 'index'])->name('dashboard.report');
+
+    Route::post('block/{user:username}', [ReportController::class, 'block'])->name('block');
+
+    Route::post('unblock/{user:username}', [ReportController::class, 'unblock'])->name('unblock');
 });

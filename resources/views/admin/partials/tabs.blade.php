@@ -8,4 +8,7 @@
     <li class="nav-item">
         <a class="nav-link{{ request()->is('admin/tags') ? ' active' : ''  }}" href="/admin/tags">Tags</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link{{ request()->is('admin/report') ? ' active' : ''  }}" href="/admin/report">Report</a>
+    </li>
 </ul>

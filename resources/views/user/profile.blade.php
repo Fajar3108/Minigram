@@ -95,7 +95,9 @@
             </button>
         </div>
         <div class="modal-body">
-            <form action="">
+            <form action="{{ route('report.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="target_id" value="{{$user->id}}">
                 <label for="message">Message</label>
                 <textarea
                 name="message"

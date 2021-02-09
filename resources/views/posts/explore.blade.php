@@ -28,6 +28,7 @@
     <div class="row px-3">
     <!-- Post -->
     @forelse ($posts as $post)
+    @if ($post->user->banned_at == null)
     <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-1 p-1">
         <a href="{{ '/blog/' . $post->id . '/show' }}">
         @if (strpos($post->thumbnail, 'mp4'))
@@ -45,6 +46,7 @@
         @endif
         </a>
     </div>
+    @endif
     @empty
     <div class="text-center py-4 w-100">
         <div class="d-flex flex-column justify-content-center align-items-center" style="height: 50vh">

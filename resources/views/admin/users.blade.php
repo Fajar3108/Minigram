@@ -5,12 +5,13 @@
 <main class="container py-4">
     @include('admin.partials.tabs')
     <div class="table-responsive">
-    <table class="table my-4 mx-auto" style="width: 500px">
+    <table class="table my-4 mx-auto" style="width: 750px">
         <thead>
             <tr>
-            <th scope="col">Username</th>
-            <th scope="col">email</th>
-            <th scope="col">Role</th>
+                <th scope="col">Username</th>
+                <th scope="col">email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,19 @@
                 </td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role }}</td>
+                <td>
+                    @if ($user->banned_at == null)
+                    <form action="{{ route('block', $user->username) }}" method="POST">
+                        @csrf
+                        <button class="btn btn-outline-danger">Block</button>
+                    </form>
+                    @else
+                    <form action="{{ route('unblock', $user->username) }}" method="POST">
+                        @csrf
+                        <button class="btn btn-outline-danger">UnBlock</button>
+                    </form>
+                    @endif
+                </td>
             </tr>
             @endforeach
         </tbody>
