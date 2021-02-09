@@ -11,10 +11,17 @@
         class="row mt-4 mx-auto shadow m-2 rounded border">
         <div class="col-md-6 py-3 border-bottom">
           <a href="{{ route('blog.show', $post->id) }}">
-          <img
-            src="{{ asset('posts/'. $post->thumbnail) }}"
-            class="d-block w-100 border rounded post-home"
-          />
+            @if (strpos($post->thumbnail, 'mp4'))
+            <video
+                class="d-block w-100 border rounded post-home">
+                <source src="{{ asset('posts/' . $post->thumbnail) }}" type="video/mp4">
+            </video>
+            @else
+            <img
+                src="{{ asset('posts/'. $post->thumbnail) }}"
+                class="d-block w-100 border rounded post-home"
+            />
+            @endif
           </a>
         </div>
         <div class="col-md-6 py-3">

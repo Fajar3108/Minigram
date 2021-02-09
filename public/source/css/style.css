@@ -88,6 +88,12 @@ html {
     background-color: #f00;
     border: 2px solid #fff;
 }
+.activity-data {
+    padding: 0 10px !important;
+}
+.user-detail {
+    margin-bottom: 20px;
+}
 
 @media (max-width: 992px) {
     .post {
@@ -100,11 +106,27 @@ html {
         width: 100%;
         margin-top: 10px;
     }
+    .user-detail {
+        flex-direction: column;
+    }
+    .user-bio {
+        margin: 0 !important;
+    }
     .user-activity-data {
-        justify-content: space-between;
+        justify-content: space-around;
     }
     .profile {
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .profile-img {
+        border-radius: 100% !important;
+        margin: 0 !important;
+    }
+    .user-data {
+        justify-content: center;
     }
     .post {
         height: 150px !important;

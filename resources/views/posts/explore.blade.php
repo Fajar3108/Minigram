@@ -30,11 +30,19 @@
     @forelse ($posts as $post)
     <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-1 p-1">
         <a href="{{ '/blog/' . $post->id . '/show' }}">
+        @if (strpos($post->thumbnail, 'mp4'))
+        <video
+            class="d-block w-100 h-100 rounded post border"
+            style="max-height: 250px; object-fit: cover; object-position: center">
+            <source src="{{ asset('posts/' . $post->thumbnail) }}" type="video/mp4">
+        </video>
+        @else
         <img
             src="{{ asset('posts/' . $post->thumbnail) }}"
-            class="d-block w-100 h-100 rounded post"
+            class="d-block w-100 h-100 rounded post border"
             style="max-height: 250px; object-fit: cover; object-position: center"
         />
+        @endif
         </a>
     </div>
     @empty

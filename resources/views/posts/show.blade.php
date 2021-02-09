@@ -2,11 +2,20 @@
 
 @section('content')
 <main class="col-md-6 mx-auto py-4">
+    @if (strpos($post->thumbnail, 'mp4'))
+    <video
+        class="rounded"
+        style="width: 100%; height: 300px; object-fit: cover; object-position: center;"
+        controls>
+        <source src="{{ asset('posts/' . $post->thumbnail) }}" type="video/mp4">
+    </video>
+    @else
     <img
     src="{{ asset('posts/' . $post->thumbnail) }}"
     class="d-block w-100"
     style="max-height: 500px; object-fit: cover; object-position:center"
     />
+    @endif
     <div class="media py-2 align-items-center">
     <img
         src="{{ asset($post->user->imgProfile()) }}"

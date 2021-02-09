@@ -32,7 +32,7 @@ class PostController extends Controller
     }
     public function store(Request $request){
         $request->validate([
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'thumbnail' => 'required|mimes:jpeg,png,jpg,gif,svg,mp4|max:30720'
         ]);
 
         $thumbnailName = time().'.'.$request->thumbnail->extension();
@@ -73,7 +73,7 @@ class PostController extends Controller
         if(auth()->user()->id === $post->user_id || auth()->user()->role === "admin"){
             if(isset($request->thumbnail)){
             $request->validate([
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'thumbnail' => 'required|mimes:jpeg,png,jpg,gif,svg,mp4|max:30720'
             ]);
             File::delete('posts/' . $post->thumbnail);
             $thumbnailName = time().'.'.$request->thumbnail->extension();

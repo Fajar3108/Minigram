@@ -8,17 +8,29 @@
             @csrf
           <div class="form-group">
             <label for="imageInput">Thumbnail</label>
-            <div class="image-upload mb-3 rounded border" style="width: 100%; max-height: 300px;">
-              <img
-                src="{{ asset('posts/' . $post->thumbnail) }}"
-                class="rounded"
-                id="imagePreview"
-                style="width: 100%; height: 300px; object-fit: cover; object-position: center;"
-              />
-              <input type="file" name="thumbnail" id="imageInput" hidden />
-              <label class="profile-input-label" for="imageInput"
-                ><i class="fas fa-image fa-fw"></i
-              ></label>
+            <div class="image-upload mb-3 rounded border" style="width: 100%; height: 300px;">
+                <div id="previewSection">
+                    @if (strpos($post->thumbnail, 'mp4'))
+                    <video
+                        src="{{ asset('posts/' . $post->thumbnail) }}"
+                        class="rounded"
+                        id="videoPreview"
+                        style="width: 100%; height: 300px; object-fit: cover; object-position: center;"
+                        controls>
+                    </video>
+                    @else
+                    <img
+                        src="{{ asset('posts/' . $post->thumbnail) }}"
+                        class="rounded"
+                        id="imagePreview"
+                        style="width: 100%; height: 300px; object-fit: cover; object-position: center;"
+                    />
+                    @endif
+                </div>
+                <input type="file" name="thumbnail" id="imageInput" hidden />
+                <label class="profile-input-label" for="imageInput"
+                    ><i class="fas fa-image fa-fw"></i
+                ></label>
             </div>
             @error('thumbnail')
                 <small class="text-danger">

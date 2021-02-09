@@ -6,8 +6,17 @@
     @foreach(auth()->user()->readNotifications as $notification)
     <li class="media mb-3 shadow-sm p-3 rounded border align-items-center">
         <a href="{{ '/blog/' . $notification->data['post'] . '/show' }}">
-            <img src="{{ asset('posts/' . App\Models\Post::find($notification->data['post'])->thumbnail ) }}" class="mr-3 rounded" width="50" height="50"
-            style="object-fit: cover; object-position:center">
+            @if (strpos(App\Models\Post::find($notification->data['post'])->thumbnail, 'mp4'))
+            <video
+                class="mr-3 rounded" width="50" height="50"
+                style="object-fit: cover; object-position:center">
+                <source src="{{ asset('posts/' . App\Models\Post::find($notification->data['post'])->thumbnail ) }}" type="video/mp4">
+            </video>
+            @else
+            <img
+                src="{{ asset('posts/' . App\Models\Post::find($notification->data['post'])->thumbnail ) }}" class="mr-3 rounded" width="50" height="50"
+                style="object-fit: cover; object-position:center">
+            @endif
         </a>
         <div class="media-body">
             <h6 class="m-0">
