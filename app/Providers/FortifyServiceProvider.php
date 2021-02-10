@@ -39,10 +39,11 @@ class FortifyServiceProvider extends ServiceProvider
 
             if ($user &&
                 Hash::check($request->password, $user->password) && $user->banned_at == null) {
-                return $user;
-            }
-            if($user->banned_at != null){
-                Alert::error('Error', 'Your account has been banned');
+                if($user->banned_at != null){
+                    Alert::error('Error', 'Your account has been banned');
+                }else{
+                    return $user;
+                }
             }
 
         });
