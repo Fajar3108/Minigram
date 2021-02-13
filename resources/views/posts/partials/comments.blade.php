@@ -1,4 +1,5 @@
 @foreach ($comments as $comment)
+@if ($comment->user->banned_at == null)
 <div class="media">
     <img
     src="{{ asset($comment->user->imgProfile()) }}"
@@ -57,4 +58,5 @@
     </div>
     </div>
 </div>
+@endif
 @endforeach

@@ -5,6 +5,7 @@
 @if (auth()->user()->readNotifications->count() > 0)
 <ul class="list-unstyled mx-auto px-4 my-4" style="max-width: 500px">
     @foreach(auth()->user()->readNotifications as $notification)
+    @if (App\Models\User::Find($notification->data['sender'])->banned_at == null)
     <li class="media mb-3 shadow-sm p-3 rounded border align-items-center">
         <a href="{{ '/blog/' . $notification->data['post'] . '/show' }}">
             @if (strpos(App\Models\Post::find($notification->data['post'])->thumbnail, 'mp4'))
@@ -27,6 +28,7 @@
             <small class="m-0 text-secondary">{{ $notification->created_at->diffForHumans() }}</small>
         </div>
     </li>
+    @endif
     @endforeach
 </ul>
 @else

@@ -6,7 +6,8 @@
     @if ($posts)
     <main class="container">
       <!-- Posts -->
-        @foreach ($posts as $post)
+      @foreach ($posts as $post)
+      @if ($post->user->banned_at == null)
       <div
         class="row mt-4 mx-auto m-2 rounded border">
         <div class="col-md-6 py-3 border-bottom">
@@ -61,6 +62,7 @@
           >
         </div>
       </div>
+      @endif
       @endforeach
     </main>
     @else

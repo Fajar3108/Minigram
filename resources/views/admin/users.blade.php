@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             @foreach ($users as $user)
-            <tr>
+            <tr @if($user->banned_at != null) class="table-danger" @endif>
                 <td>
                     <a href="{{ '/profile/' . $user->username }}">
                         <img
