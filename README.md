@@ -2,7 +2,7 @@
 <p>Notes: Everything inside " ", copy and paste into your terminal</p>
 <ol>
     <li>
-    "git clone https://github.com/Fajar3108/Minigram.git" project_name
+    "git clone https://github.com/Fajar3108/Minigram.git project_name"
     </li>
     <li>"cd project_name"</li>
     <li>"composer install"</li>
