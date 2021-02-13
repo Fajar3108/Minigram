@@ -24,6 +24,8 @@ class TagSeeder extends Seeder
             $tags[] = [
                 'name' => $data,
                 'slug' => Str::slug($data),
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
         }
 
