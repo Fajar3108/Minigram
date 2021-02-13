@@ -18,7 +18,7 @@ class DashboardController extends Controller
 
     public function manageUsers()
     {
-        $users = User::latest()->paginate(10);
+        $users = User::latest()->paginate(5);
         return view('admin.users', compact('users'));
     }
 }

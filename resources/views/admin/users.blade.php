@@ -50,6 +50,9 @@
         </tbody>
     </table>
     </div>
+    <div style="max-width: 750px" class="mx-auto">
+        {{ $users->links() }}
+    </div>
 </main>
 
 @endsection
