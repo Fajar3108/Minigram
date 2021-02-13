@@ -54,6 +54,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Comment::class);
     }
 
+    public function reports()
+    {
+        return $this->hasMany(Report::class, "reporter_id");
+    }
+
     public function isAdmin()
     {
         return $this->role === "admin";
@@ -66,9 +71,5 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return "profiles/" . $this->profile_image;
     }
-    public function needsToApproveFollowRequests()
-    {
-        // Your custom logic here
-        return (bool) $this->private;
-    }
+
 }

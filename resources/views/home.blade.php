@@ -37,9 +37,9 @@
               <strong class="m-0"
                 ><a href="{{ '/profile/' . $post->user->username }}" class="text-dark">{{ $post->user->username }}</a></strong
               >
-              @if(auth()->user()->id === $post->user_id || auth()->user()->role === "admin")
+              @can('update', $post)
               <a href="{{ route('blog.edit', $post->id) }}"> <i class="fas fa-edit"></i> Edit </a>
-              @endif
+              @endcan
             </div>
           </div>
           <p class="pt-3 m-0">

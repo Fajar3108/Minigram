@@ -16,8 +16,12 @@ class ReportController extends Controller
     }
     public function store(Request $request)
     {
-        $report = Report::create([
-            'reporter_id' => auth()->user()->id,
+        if(!isset($request->message)){
+            Alert::error('Error', "Message's field can't be null");
+            return back();
+        }
+
+        auth()->user()->reports()->create([
             'target_id' => $request->target_id,
             'message' => $request->message,
         ]);

@@ -10,7 +10,7 @@
     <div class="media-body">
     <div class="d-flex align-items-center">
         <strong class="mt-0 mr-2"><a href="{{ '/profile/' . $comment->user->username }}" class="text-dark">{{ $comment->user->username }}</a></strong>
-        @if (auth()->user()->id === $comment->user_id || auth()->user()->role === "admin")
+        @can('delete', $comment)
         <form action="{{ route('comment.delete', $comment->id) }}" method="POST">
             @csrf
             @method('DELETE')
@@ -19,7 +19,7 @@
                 delete
             </button>
         </form>
-        @endif
+        @endcan
     </div>
     <p class="mb-0">
         {{ $comment->body }} &middot; <small class="text-secondary">{{ $comment->created_at->diffForHumans() }}</small>

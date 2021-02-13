@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 use App\Models\{Post, Tag};
 use Illuminate\Support\Facades\File;
 Use Alert;
@@ -12,15 +12,19 @@ class PostController extends Controller
     public function index()
     {
         $posts = [];
+        // Get Posts from followings
         foreach(auth()->user()->followings as $following){
             foreach($following->posts as $post){
                 $posts[] = $post;
             }
         }
+        // Get user's posts
         foreach(Post::with('user', 'tags')->where('user_id', auth()->user()->id)->latest()->get() as $post){
             $posts[] = $post;
         }
+        // Sorting the posts
         arsort($posts);
+
         return view('home', compact('posts'));
     }
     public function create()
@@ -30,20 +34,20 @@ class PostController extends Controller
             'tags' => Tag::get()
         ]);
     }
-    public function store(Request $request){
-        $request->validate([
-            'thumbnail' => 'required|mimes:jpeg,png,jpg,gif,svg,mp4|max:30720'
-        ]);
-
+    public function store(PostRequest $request){
+        // Get image name and extension
         $thumbnailName = time().'.'.$request->thumbnail->extension();
-        $request->thumbnail->move(public_path('posts'), $thumbnailName);
 
+        // Move the image to "public/posts" folder
+        $this->storeImage($request, $thumbnailName);
+
+        // Store post into database
         $post = auth()->user()->posts()->create([
-            'user_id' => auth()->user()->id,
             'thumbnail' => $thumbnailName,
             'content' => $request->content,
         ]);
 
+        // Store tags into database
         $post->tags()->attach(request('tags'));
 
         Alert::success('Success', 'Post created successfully.');
@@ -58,62 +62,76 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        if(auth()->user()->id === $post->user_id || auth()->user()->role === "admin"){
-            return view('posts.edit', [
-                'post' => $post,
-                'tags' => Tag::get()
-            ]);
-        }else{
-            abort(403, "This is not your post");
-        }
+        $this->authorize('update', $post);
+
+        return view('posts.edit', [
+            'post' => $post,
+            'tags' => Tag::get()
+        ]);
     }
 
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        if(auth()->user()->id === $post->user_id || auth()->user()->role === "admin"){
-            if(isset($request->thumbnail)){
-            $request->validate([
-                'thumbnail' => 'required|mimes:jpeg,png,jpg,gif,svg,mp4|max:30720'
-            ]);
-            File::delete('posts/' . $post->thumbnail);
+        $this->authorize('update', $post);
+
+        // Set post's thumbnail
+        if(isset($request->thumbnail)){
+            // Validation
+            $request->validated();
+            // Delete old image file in "public/posts" folder
+            $this->removeImage($post);
+            // Get image name and extension
             $thumbnailName = time().'.'.$request->thumbnail->extension();
-            $request->thumbnail->move(public_path('posts'), $thumbnailName);
-            }else{
-                $thumbnailName = $post->thumbnail;
-            }
-
-            $post->update([
-                'thumbnail' => $thumbnailName,
-                'content' => $request->content,
-            ]);
-
-            $post->tags()->sync($request->tags);
-
-            Alert::success('Success', 'Post updated successfully.');
-
-            return redirect('/');
+            // Move the new image to "public/posts" folder
+            $this->storeImage($request, $thumbnailName);
         }else{
-            abort(403, "This is not your post");
+            // if thumbnail is null, set the value same with the old thumbnail
+            $thumbnailName = $post->thumbnail;
         }
 
+        // Update the post in database
+        $post->update([
+            'thumbnail' => $thumbnailName,
+            'content' => $request->content,
+        ]);
+
+        // Update post's tags
+        $post->tags()->sync($request->tags);
+
+        Alert::success('Success', 'Post updated successfully.');
+
+        return redirect('/');
     }
 
     public function destroy(Post $post)
     {
-        if(auth()->user()->id === $post->user_id || auth()->user()->role === "admin"){
-            $post->tags()->detach();
-            $post->delete();
-            File::delete('posts/' . $post->thumbnail);
-            Alert::success('Success', 'Post deleted successfully.');
-            return redirect('/');
-        }else{
-            abort(403, "This is not your post");
-        }
+        $this->authorize('delete', $post);
+
+        // Delete all post's tags
+        $post->tags()->detach();
+        // Delete Post from database
+        $post->delete();
+        // Remove post's thumbnail from "public/posts"
+        $this->removeImage($post);
+
+        Alert::success('Success', 'Post deleted successfully.');
+
+        return redirect('/');
     }
 
     public function explore()
     {
         $posts = Post::latest()->get();
         return view('posts.explore', compact('posts'));
+    }
+
+    public function storeImage($post, $thumbnailName)
+    {
+        $post->thumbnail->move(public_path('posts'), $thumbnailName);
+    }
+
+    public function removeImage($post)
+    {
+        File::delete('posts/' . $post->thumbnail);
     }
 }

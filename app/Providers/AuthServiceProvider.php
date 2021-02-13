@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use App\Models\{Post, Comment};
+use App\Policies\{PostPolicy, CommentPolicy};
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,8 +15,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Models\Post' => 'App\Policies\PostPolicy',
-        'App\Models\Comment' => 'App\Policies\CommentPolicy',
+        Post::class => PostPolicy::class,
+        Comment::class => CommentPolicy::class,
     ];
 
     /**
@@ -25,9 +27,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        Gate::before(function($user){
-            return $user->isAdmin();
-        });
     }
 }

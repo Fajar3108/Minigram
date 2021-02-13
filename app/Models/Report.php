@@ -9,7 +9,7 @@ class Report extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['reporter_id', 'target_id', 'message'];
+    protected $fillable = ['target_id', 'message'];
 
     public function reporter()
     {

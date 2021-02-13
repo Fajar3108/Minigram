@@ -28,11 +28,14 @@
         <strong class="m-0"
         ><a href="{{ '/profile/' . $post->user->username }}" class="text-dark">{{ $post->user->username }}</a></strong
         >
-        @if(auth()->user()->id === $post->user_id || auth()->user()->role === "admin")
+        {{-- @if(auth()->user()->id === $post->user_id || auth()->user()->role === "admin") --}}
+        @can('update', $post)
         <a href="{{ route('blog.edit', $post->id) }}"> <i class="fas fa-edit"></i> Edit </a>
         @else
         <a href="#comments"><i class="fas fa-comment-dots"></i> Comments</a>
-        @endif
+        @endcan
+        {{-- @else --}}
+        {{-- @endif --}}
     </div>
     </div>
     <p class="m-0">
