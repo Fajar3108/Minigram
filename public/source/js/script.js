@@ -1,11 +1,11 @@
 function imagePriview(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-
+        var videoExtention = /(\.mp4)$/i;
         let previewSection = document.getElementById("previewSection");
 
         reader.onload = function (e) {
-            if (e.target.result.includes("mp4")) {
+            if (videoExtention.exec(e.target.result)) {
                 previewSection.innerHTML = `
                 <video
                     src="${e.target.result}"
