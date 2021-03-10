@@ -37,7 +37,7 @@ class CommentController extends Controller
     {
         $reply = new Comment();
 
-        if(isset($request->comment)){
+        if(!isset($request->comment)){
             Alert::error('ERROR', "Comment can't be null");
             return back();
         }
