@@ -12,6 +12,6 @@
     <li>Create a new database called 'minigram' or whatever you want</li>
     <li>Change databse name in .env file</li>
     <li>"php artisan migrate --seed"</li>
-    <li>Setting integration in .env file for email verification (I'm using mailtrap.io for development testing</li>
+    <li>Setting integration in .env file for email verification (I'm using mailtrap.io for development testing)</li>
     <li>"php artisan serve"</li>
 </ol>
